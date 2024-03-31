@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net"
 	"os"
 	s "strings"
@@ -18,14 +17,6 @@ var typeToString = map[uint16]string{
 	dns.TypeTXT:   "TXT",
 	dns.TypePTR:   "PTR",
 }
-
-// var stringToType = map[string]uint16{
-// 	"A":     dns.TypeA,
-// 	"AAAA":  dns.TypeAAAA,
-// 	"CNAME": dns.TypeCNAME,
-// 	"TXT":   dns.TypeTXT,
-// 	"PTR":   dns.TypePTR,
-// }
 
 func loadIps(filename string) map[string]map[string][]string {
 	result := make(map[string]map[string][]string)
@@ -85,7 +76,6 @@ func makeRecord(question dns.Question, value string) dns.RR {
 }
 
 func (h *handler) ServeDNS(w dns.ResponseWriter, m *dns.Msg) {
-	log.Println(*m)
 	msg := new(dns.Msg)
 	msg.SetReply(m)
 	msg.Authoritative = true
@@ -112,7 +102,6 @@ func (h *handler) ServeDNS(w dns.ResponseWriter, m *dns.Msg) {
 func main() {
 	filename := os.Args[1]
 	records = loadIps(filename)
-	fmt.Println(records)
 	handle := new(handler)
 	server := &dns.Server{
 		Addr:    ":5003",

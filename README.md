@@ -13,3 +13,7 @@ UDP server acting like dns resolver answering with records from given file only
 Example:
 
 `dig @localhost -p 5003 example.com AAAA`
+
+## Generate huge file with random A records
+
+`go run generator/main.go` It will produce file `random_records.txt` in correct format with 10001 random A records
